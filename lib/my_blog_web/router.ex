@@ -18,6 +18,7 @@ defmodule MyBlogWeb.Router do
     pipe_through :browser
 
     live "/", IndexLive
+    live "/blog", BlogLive
   end
 
   # Other scopes may use custom stacks.
