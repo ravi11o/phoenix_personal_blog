@@ -25,6 +25,7 @@ defmodule MyBlogWeb.Router do
     live "/tags", TagLive
     live "/projects", ProjectLive
     live "/about", AboutLive
+    live "/blog/:slug", DetailsLive
   end
 
   # Other scopes may use custom stacks.
