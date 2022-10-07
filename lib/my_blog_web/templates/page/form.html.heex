@@ -1,0 +1,43 @@
+<section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-5 mx-auto">
+    <div class="flex flex-col text-center w-full">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">Create Article</h1>
+    </div>
+    <.form let={f} for={@changeset} action={Routes.page_path(@conn, :create)}>
+
+      <div class="mx-auto">
+        <div class="flex flex-wrap -m-2">
+          <div class="p-2 w-full">
+              <div class="relative">
+                <label for="title" class="leading-7 text-sm text-gray-600">Title</label>
+                <%= text_input f, :title, class: "w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
+              </div>
+            </div>
+            <div class="p-2 w-1/2">
+              <div class="relative">
+                <label for="Tags" class="leading-7 text-sm text-gray-600">Tags</label>
+                <%= text_input f, :tag, class: "w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
+              </div>
+            </div>
+            <div class="p-2 w-1/2">
+              <div class="relative">
+                <label for="category" class="leading-7 text-sm text-gray-600">Category</label>
+                <%= select f, :category, ["Node": "node", "Elixir": "elixir", "MongoDB": "mongodb", "PostgreSQL": "postgres"], class: "w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
+              </div>
+            </div>
+            <div class="p-2 w-full">
+              <div class="relative">
+                <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+                <%= textarea f, :description, class: "w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-200 h-96 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" %>
+              </div>
+            </div>
+            <div class="p-2 w-full">
+              <button class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Add Article</button>
+            </div>
+            
+        </div>
+      </div>
+    </.form>
+
+  </div>
+</section>
