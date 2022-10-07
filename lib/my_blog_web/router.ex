@@ -20,9 +20,12 @@ defmodule MyBlogWeb.Router do
   scope "/", MyBlogWeb do
     pipe_through :browser
 
-    get "/blog/new", PageController, :new
-    post "/blog", PageController, :create
+    get "/articles/new", PageController, :new
+    post "/articles", PageController, :create
     get "/articles", PageController, :list
+    get "/articles/:id/edit", PageController, :edit
+    put "/articles/:id", PageController, :update
+    patch "/articles/:id/publish", PageController, :publish
 
     live "/", IndexLive
     live "/blog", BlogLive

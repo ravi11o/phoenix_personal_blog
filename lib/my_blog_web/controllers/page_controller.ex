@@ -6,6 +6,7 @@ defmodule MyBlogWeb.PageController do
 
   def new(conn, _params) do
     changeset = Article.changeset(%Article{}, %{})
+    IO.inspect(changeset)
     render(conn, "form.html", changeset: changeset)
   end
 
@@ -21,7 +22,24 @@ defmodule MyBlogWeb.PageController do
 
   def list(conn, _params) do
     articles = Blog.list_articles()
-    IO.inspect(articles)
     render(conn, "articles.html", articles: articles)
+  end
+
+  def edit(conn, %{"id" => id}) do
+    article = Blog.get_article(id)
+    changeset = Article.changeset(%Article{} = article, %{})
+    render(conn, "form.html", changeset: changeset, article: article)
+  end
+
+  def update(conn, %{"id" => id, "article" => article_params}) do
+    article = Blog.get_article(id)
+
+    case Blog.update_article(article, article_params) do
+      {:ok, article} ->
+        conn |> redirect(to: "/blog/#{article.slug}")
+
+      {:error, changeset} ->
+        render(conn, "form.html", changeset: changeset, article: article)
+    end
   end
 end
