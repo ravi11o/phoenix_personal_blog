@@ -1,7 +1,10 @@
 defmodule MyBlogWeb.BlogLive do
   use MyBlogWeb, :live_view
 
+  alias MyBlog.Blog
+
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    articles = Blog.list_articles()
+    {:ok, assign(socket, articles: articles)}
   end
 end
