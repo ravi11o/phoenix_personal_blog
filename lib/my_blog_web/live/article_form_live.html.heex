@@ -3,7 +3,10 @@
     <div class="flex flex-col text-center w-full">
       <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900"><%= if @changeset.valid?, do: "Update Article", else: "Create Article" %></h1>
     </div>
-    <.form let={f} for={@changeset} action={if @changeset.valid?, do: Routes.page_path(@conn, :update, @article), else: Routes.page_path(@conn, :create)}>
+    <.form let={f} for={@changeset} 
+          action={Routes.page_path(@socket, :create)}
+          phx_submit="save"
+          phx_trigger_action={@trigger_submit} >
 
       <div class="mx-auto">
         <div class="flex flex-wrap -m-2">

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ckeditor5-custom-build": "file:vendor/ckeditor5-build"
+  }
+}

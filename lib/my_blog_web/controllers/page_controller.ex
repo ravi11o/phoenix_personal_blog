@@ -6,7 +6,6 @@ defmodule MyBlogWeb.PageController do
 
   def new(conn, _params) do
     changeset = Article.changeset(%Article{}, %{})
-    IO.inspect(changeset)
     render(conn, "form.html", changeset: changeset)
   end
 
