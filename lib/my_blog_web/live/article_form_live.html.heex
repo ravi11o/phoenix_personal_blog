@@ -5,7 +5,7 @@
     </div>
     <.form let={f} for={@changeset} 
           action={Routes.page_path(@socket, :create)}
-          phx_submit="save"
+          phx_submit={if @article, do: "update", else: "save"}
           phx_trigger_action={@trigger_submit} >
 
       <div class="mx-auto">

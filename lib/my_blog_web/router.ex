@@ -22,8 +22,8 @@ defmodule MyBlogWeb.Router do
 
     post "/articles", PageController, :create
     get "/articles", PageController, :list
-    get "/articles/:id/edit", PageController, :edit
-    put "/articles/:id", PageController, :update
+    # get "/articles/:id/edit", PageController, :edit
+    # put "/articles/:id", PageController, :update
     patch "/articles/:id/publish", PageController, :publish
 
     live "/", IndexLive
@@ -33,6 +33,7 @@ defmodule MyBlogWeb.Router do
     live "/about", AboutLive
     live "/blog/:slug", DetailsLive
     live "/articles/new", ArticleFormLive
+    live "/articles/:id/edit", ArticleFormLive
   end
 
   # Other scopes may use custom stacks.
@@ -83,5 +84,7 @@ defmodule MyBlogWeb.Router do
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
     post "/users/confirm/:token", UserConfirmationController, :update
+
+    get "/*path", PageController, :not_found
   end
 end

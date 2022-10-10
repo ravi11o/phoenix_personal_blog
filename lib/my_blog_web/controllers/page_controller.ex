@@ -24,21 +24,25 @@ defmodule MyBlogWeb.PageController do
     render(conn, "articles.html", articles: articles)
   end
 
-  def edit(conn, %{"id" => id}) do
-    article = Blog.get_article(id)
-    changeset = Article.changeset(%Article{} = article, %{})
-    render(conn, "form.html", changeset: changeset, article: article)
-  end
+  # def edit(conn, %{"id" => id}) do
+  #   article = Blog.get_article(id)
+  #   changeset = Article.changeset(%Article{} = article, %{})
+  #   render(conn, "form.html", changeset: changeset, article: article)
+  # end
 
-  def update(conn, %{"id" => id, "article" => article_params}) do
-    article = Blog.get_article(id)
+  # def update(conn, %{"id" => id, "article" => article_params}) do
+  #   article = Blog.get_article(id)
 
-    case Blog.update_article(article, article_params) do
-      {:ok, article} ->
-        conn |> redirect(to: "/blog/#{article.slug}")
+  #   case Blog.update_article(article, article_params) do
+  #     {:ok, article} ->
+  #       conn |> redirect(to: "/blog/#{article.slug}")
 
-      {:error, changeset} ->
-        render(conn, "form.html", changeset: changeset, article: article)
-    end
+  #     {:error, changeset} ->
+  #       render(conn, "form.html", changeset: changeset, article: article)
+  #   end
+  # end
+
+  def not_found(conn, _) do
+    render(conn, "404.html")
   end
 end
