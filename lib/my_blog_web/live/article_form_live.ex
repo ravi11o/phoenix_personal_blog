@@ -57,20 +57,22 @@ defmodule MyBlogWeb.ArticleFormLive do
 
   def handle_event("update", %{"article" => params}, socket) do
     article = Blog.get_article(socket.assigns.article_id)
-    # uploads =
-    #   consume_uploaded_entries(socket, :image, fn meta, entry ->
-    #     dest = Path.join("priv/static/images", filename(entry))
-    #     File.cp!(meta.path, dest)
-    #     Routes.static_path(socket, "/images/#{filename(entry)}")
-    #   end)
 
-    # [image_url] =
-    #   consume_uploaded_entries(socket, :image, fn meta, _ ->
-    #     case Cloudex.upload(meta.path) do
-    #       {:ok, file} -> file.secure_url
-    #       {:error, _} -> nil
-    #     end
-    #   end)
+    uploaded =
+      consume_uploaded_entries(socket, :cover, fn meta, _entry ->
+        case Cloudex.upload(meta.path) do
+          {:ok, file} -> file.secure_url
+          {:error, _} -> nil
+        end
+      end)
+
+    image =
+      case uploaded do
+        [] -> nil
+        [image] -> image
+      end
+
+    params = %{params | "cover_image" => image || article.cover_image}
 
     case Blog.update_article(article, params) do
       {:ok, article} -> {:noreply, push_redirect(socket, to: "/blog/#{article.slug}")}

@@ -2,6 +2,8 @@ defmodule MyBlog.Blog.Article do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias MyBlog.Blog.{Tag, ArticleTag}
+
   schema "articles" do
     field :category, :string
     field :cover_image, :string
@@ -11,6 +13,12 @@ defmodule MyBlog.Blog.Article do
     field :title, :string
     field :tag, :string, virtual: true
     belongs_to :user, MyBlog.Account.User
+
+    many_to_many(:tags, Tag,
+      join_through: ArticleTag,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
 
     timestamps()
   end
