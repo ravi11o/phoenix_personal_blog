@@ -66,4 +66,9 @@ defmodule MyBlog.Blog do
     # find all the input tags
     Repo.all(from(t in Tag, where: t.name in ^tag_names))
   end
+
+  # Tags router
+  def list_tags do
+    Repo.all(Tag) |> Repo.preload(:articles)
+  end
 end
