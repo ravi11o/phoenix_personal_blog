@@ -24,6 +24,11 @@ defmodule MyBlogWeb.PageController do
     render(conn, "articles.html", articles: articles)
   end
 
+  def delete(conn, %{"id" => id}) do
+    Blog.delete_article(id)
+    redirect(conn, to: "/articles")
+  end
+
   # def edit(conn, %{"id" => id}) do
   #   article = Blog.get_article(id)
   #   changeset = Article.changeset(%Article{} = article, %{})

@@ -22,8 +22,7 @@ defmodule MyBlogWeb.Router do
 
     post "/articles", PageController, :create
     get "/articles", PageController, :list
-    # get "/articles/:id/edit", PageController, :edit
-    # put "/articles/:id", PageController, :update
+    get "/articles/:id/delete", PageController, :delete
     patch "/articles/:id/publish", PageController, :publish
 
     live "/", IndexLive

@@ -29,4 +29,9 @@ defmodule MyBlog.Blog do
     changeset = Article.changeset(%Article{} = article, params)
     Repo.update(changeset)
   end
+
+  def delete_article(id) do
+    article = get_article(id)
+    Repo.delete!(article)
+  end
 end
