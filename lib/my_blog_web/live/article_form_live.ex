@@ -17,38 +17,46 @@ defmodule MyBlogWeb.ArticleFormLive do
         %Article{} = article -> Article.changeset(article, %{})
       end
 
+    socket =
+      allow_upload(
+        socket,
+        :cover,
+        accept: ~w(.png .jpg .jpeg),
+        max_file_size: 5_000_000
+      )
+
     {:ok,
      assign(socket,
        changeset: changeset,
        article: article,
-       id: params["id"],
-       trigger_submit: false
+       article_id: params["id"]
      )}
   end
 
   def handle_event("save", %{"article" => params}, socket) do
-    # uploads =
-    #   consume_uploaded_entries(socket, :image, fn meta, entry ->
-    #     dest = Path.join("priv/static/images", filename(entry))
-    #     File.cp!(meta.path, dest)
-    #     Routes.static_path(socket, "/images/#{filename(entry)}")
-    #   end)
+    [image] =
+      consume_uploaded_entries(socket, :cover, fn meta, _entry ->
+        case Cloudex.upload(meta.path) do
+          {:ok, file} -> file.secure_url
+          {:error, _} -> nil
+        end
+      end)
 
-    # [image_url] =
-    #   consume_uploaded_entries(socket, :image, fn meta, _ ->
-    #     case Cloudex.upload(meta.path) do
-    #       {:ok, file} -> file.secure_url
-    #       {:error, _} -> nil
-    #     end
-    #   end)
+    params = %{params | "cover_image" => image}
 
+    case Blog.create_article(params) do
+      {:ok, article} -> {:noreply, push_redirect(socket, to: "/blog/#{article.slug}")}
+      {:error, changeset} -> {:noreply, assign(socket, changeset: changeset)}
+    end
+  end
+
+  def handle_event("validate", %{"article" => params}, socket) do
     changeset = Article.changeset(%Article{}, params)
-
-    {:noreply, assign(socket, changeset: changeset, trigger_submit: changeset.valid?)}
+    {:noreply, assign(socket, changeset: changeset)}
   end
 
   def handle_event("update", %{"article" => params}, socket) do
-    article = Blog.get_article(socket.assigns.id)
+    article = Blog.get_article(socket.assigns.article_id)
     # uploads =
     #   consume_uploaded_entries(socket, :image, fn meta, entry ->
     #     dest = Path.join("priv/static/images", filename(entry))

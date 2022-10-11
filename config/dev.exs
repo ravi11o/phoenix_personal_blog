@@ -72,5 +72,10 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+config :cloudex,
+  api_key: System.get_env("CLOUD_API_KEY"),
+  secret: System.get_env("CLOUD_SECRET"),
+  cloud_name: System.get_env("CLOUD_NAME")
+
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
