@@ -67,7 +67,8 @@ defmodule MyBlog.Blog do
     Repo.all(from(t in Tag, where: t.name in ^tag_names))
   end
 
-  # Tags router
+  ######### Tags router
+
   def list_tags do
     Repo.all(Tag) |> Repo.preload(:articles)
   end
@@ -76,5 +77,26 @@ defmodule MyBlog.Blog do
     Tag
     |> preload(articles: [:tags])
     |> Repo.get_by!(name: name)
+  end
+
+  ##### Text based search
+  defp prefix_search(term), do: String.replace(term, ~r/\W/u, "") <> ":*"
+
+  defp search(query, search_term) do
+    where(
+      query,
+      fragment(
+        "to_tsvector('english', title || ' ' || description) @@
+        to_tsquery(?)",
+        ^prefix_search(search_term)
+      )
+    )
+  end
+
+  def search_results(term) do
+    Article
+    |> search(term)
+    |> preload(:tags)
+    |> Repo.all()
   end
 end
