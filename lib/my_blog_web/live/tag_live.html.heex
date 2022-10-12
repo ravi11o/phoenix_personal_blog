@@ -3,7 +3,7 @@
   <div class="flex justify-center gap-4 flex-wrap">
     <%= for tag <- @tags do %>
       <div class="not-prose">
-        <a class="no-underline relative inline-block text-sm font-medium text-blue-700 group" href="/tags/react">
+        <a class="no-underline relative inline-block text-sm font-medium text-blue-700 group" href={"/tags/#{tag.name}"}>
           <span class="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-blue-700 group-hover:translate-y-0 group-hover:translate-x-0"></span>
           <span class="relative block px-4 py-2 bg-white border border-current">#<%= tag.name %> (<%= length tag.articles %>)</span>
         </a>

@@ -132,11 +132,12 @@
 
 .blog-description-block pre {
   background: rgb(236, 237, 237);
-  padding: 5px 8px 5px 8px;
+  padding: 5px 8px 5px 15px;
   border-radius: 3px;
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: medium;
+  overflow: scroll;
 }
 
 .blog-description-block pre code {
@@ -151,19 +152,23 @@
 }
 
 .blog-description-block h2 {
+  font-size: x-large;
   padding: 10px 0 10px 0;
 }
 
 .blog-description-block h1 {
+  font-size: xx-large;
   padding: 12px 0 12px 0;
 }
 
 .blog-description-block h3 {
+  font-size: large;
   padding: 8px 0 8px 0;
 }
 
 .blog-description-block ul {
   padding: 10px 0 10px 30px;
+  font-size: medium;
   font-weight: 500;
 }
 
@@ -173,9 +178,11 @@
 }
 
 .blog-description-block blockquote {
-  padding: 10px 0 10px 40px;
+  padding: 10px 0 10px 20px;
   font-style: italic;
   font-weight: bold;
+  border-left: 3px solid indigo;
+  background-color: rgb(232, 232, 232);
 }
 
 .blog-description-block table {
@@ -192,4 +199,8 @@
 
 .blog-description-block hr {
   margin-bottom: 10px;
+}
+
+.blog-description-block a {
+  color: lightskyblue;
 }

@@ -71,4 +71,10 @@ defmodule MyBlog.Blog do
   def list_tags do
     Repo.all(Tag) |> Repo.preload(:articles)
   end
+
+  def get_tag(name) do
+    Tag
+    |> preload(articles: [:tags])
+    |> Repo.get_by!(name: name)
+  end
 end

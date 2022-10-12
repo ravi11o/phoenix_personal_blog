@@ -28,6 +28,7 @@ defmodule MyBlogWeb.Router do
     live "/", IndexLive
     live "/blog", BlogLive
     live "/tags", TagLive
+    live "/tags/:name", TaggedArticle
     live "/projects", ProjectLive
     live "/about", AboutLive
     live "/blog/:slug", DetailsLive
