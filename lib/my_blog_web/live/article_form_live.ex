@@ -34,13 +34,19 @@ defmodule MyBlogWeb.ArticleFormLive do
   end
 
   def handle_event("save", %{"article" => params}, socket) do
-    [image] =
+    uploaded =
       consume_uploaded_entries(socket, :cover, fn meta, _entry ->
         case Cloudex.upload(meta.path) do
           {:ok, file} -> file.secure_url
           {:error, _} -> nil
         end
       end)
+
+      image =
+        case uploaded do
+          [] -> nil
+          [image] -> image
+        end
 
     params = %{params | "cover_image" => image}
 

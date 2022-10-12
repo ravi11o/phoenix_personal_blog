@@ -7,7 +7,22 @@ defmodule MyBlog.Blog do
   def list_articles do
     Article
     |> preload(:tags)
+    |> order_by(desc: :inserted_at)
+    |> limit(5)
     |> Repo.all()
+  end
+
+  def list_articles(page, per_page) do
+    Article
+    |> preload(:tags)
+    |> order_by(desc: :inserted_at)
+    |> limit(^per_page)
+    |> offset(^per_page * (^page - 1))
+    |> Repo.all()
+  end
+
+  def count_articles do
+    Article |> Repo.aggregate(:count)
   end
 
   def get_article(id) do
@@ -93,10 +108,30 @@ defmodule MyBlog.Blog do
     )
   end
 
-  def search_results(term) do
+  # def search_results(term, page, per_page) do
+  #   Article
+  #   |> search(term)
+  #   |> preload(:tags)
+  #   |> limit(^per_page)
+  #   |> offset(^per_page * (^page - 1))
+  #   |> Repo.all()
+  # end
+
+  defp search_query(term) do
     Article
     |> search(term)
     |> preload(:tags)
+  end
+
+  def search_results(term, page, per_page) do
+    search_query(term)
+    |> limit(^per_page)
+    |> offset(^per_page * (^page - 1))
     |> Repo.all()
+  end
+
+  def search_results(term) do
+    search_query(term)
+    |> Repo.aggregate(:count)
   end
 end
