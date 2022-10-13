@@ -26,7 +26,7 @@ defmodule MyBlog.Blog.Article do
   @doc false
   def changeset(article, attrs) do
     article
-    |> cast(attrs, [:title, :description, :category, :cover_image, :tag])
+    |> cast(attrs, [:title, :description, :category, :cover_image, :tag, :is_published])
     |> validate_required([:title, :description, :category])
     |> generate_slug()
     |> unique_constraint(:slug)

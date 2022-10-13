@@ -20,10 +20,6 @@ defmodule MyBlogWeb.Router do
   scope "/", MyBlogWeb do
     pipe_through :browser
 
-    # get "/articles", PageController, :list
-    # get "/articles/:id/delete", PageController, :delete
-    # patch "/articles/:id/publish", PageController, :publish
-
     live "/", IndexLive
     live "/blog", BlogLive
     live "/tags", TagLive
