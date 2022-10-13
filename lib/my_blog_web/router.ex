@@ -20,10 +20,9 @@ defmodule MyBlogWeb.Router do
   scope "/", MyBlogWeb do
     pipe_through :browser
 
-    post "/articles", PageController, :create
-    get "/articles", PageController, :list
-    get "/articles/:id/delete", PageController, :delete
-    patch "/articles/:id/publish", PageController, :publish
+    # get "/articles", PageController, :list
+    # get "/articles/:id/delete", PageController, :delete
+    # patch "/articles/:id/publish", PageController, :publish
 
     live "/", IndexLive
     live "/blog", BlogLive
@@ -32,8 +31,12 @@ defmodule MyBlogWeb.Router do
     live "/projects", ProjectLive
     live "/about", AboutLive
     live "/blog/:slug", DetailsLive
-    live "/articles/new", ArticleFormLive
-    live "/articles/:id/edit", ArticleFormLive
+
+    live_session :admin, on_mount: {MyBlogWeb.LiveAuth, :admin} do
+      live "/articles", ArticleLive
+      live "/articles/new", ArticleFormLive
+      live "/articles/:id/edit", ArticleFormLive
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -1,33 +1,33 @@
 defmodule MyBlogWeb.PageController do
   use MyBlogWeb, :controller
 
-  alias MyBlog.Blog.Article
-  alias MyBlog.Blog
+  # alias MyBlog.Blog.Article
+  # alias MyBlog.Blog
 
-  def new(conn, _params) do
-    changeset = Article.changeset(%Article{}, %{})
-    render(conn, "form.html", changeset: changeset)
-  end
+  # def new(conn, _params) do
+  #   changeset = Article.changeset(%Article{}, %{})
+  #   render(conn, "form.html", changeset: changeset)
+  # end
 
-  def create(conn, %{"article" => article_params}) do
-    case Blog.create_article(article_params) do
-      {:ok, article} ->
-        conn |> redirect(to: "/blog/#{article.slug}")
+  # def create(conn, %{"article" => article_params}) do
+  #   case Blog.create_article(article_params) do
+  #     {:ok, article} ->
+  #       conn |> redirect(to: "/blog/#{article.slug}")
 
-      {:error, changeset} ->
-        render(conn, "form.html", changeset: changeset)
-    end
-  end
+  #     {:error, changeset} ->
+  #       render(conn, "form.html", changeset: changeset)
+  #   end
+  # end
 
-  def list(conn, _params) do
-    articles = Blog.list_articles()
-    render(conn, "articles.html", articles: articles)
-  end
+  # def list(conn, _params) do
+  #   articles = Blog.list_articles()
+  #   render(conn, "articles.html", articles: articles)
+  # end
 
-  def delete(conn, %{"id" => id}) do
-    Blog.delete_article(id)
-    redirect(conn, to: "/articles")
-  end
+  # def delete(conn, %{"id" => id}) do
+  #   Blog.delete_article(id)
+  #   redirect(conn, to: "/articles")
+  # end
 
   # def edit(conn, %{"id" => id}) do
   #   article = Blog.get_article(id)
