@@ -50,7 +50,9 @@ defmodule MyBlog.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:cloudex, "~> 1.4"}
+      {:cloudex, "~> 1.4"},
+      {:distillery, "~> 2.1"},
+      {:edeliver, "~> 1.8"}
     ]
   end
 
